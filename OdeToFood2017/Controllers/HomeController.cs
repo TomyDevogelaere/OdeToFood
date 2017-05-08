@@ -28,6 +28,7 @@ namespace OdeToFood2017.Controllers
         }
         public string Details(int id)
         {
+            var model = _restaurantData.Get(id);
             return id.ToString();
         }
     }
