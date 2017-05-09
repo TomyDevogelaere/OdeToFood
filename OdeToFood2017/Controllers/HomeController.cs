@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OdeToFood2017.ViewModels;
 using OdeToFood2017.Services;
+using OdeToFood2017.Entities;
 
 namespace OdeToFood2017.Controllers
 {
@@ -26,10 +27,32 @@ namespace OdeToFood2017.Controllers
             model.CurrentGreeting = _greeter.GetGreeting();
             return View(model);
         }
-        public string Details(int id)
+        public IActionResult Details(int id)
         {
             var model = _restaurantData.Get(id);
-            return id.ToString();
+            if (model == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+        [HttpGet]
+        public ViewResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(RestaurantEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var restaurant = new Restaurant();
+                restaurant.Name = model.Name;
+                restaurant.Cuisine = model.Cuisin;
+                _restaurantData.Add(restaurant);
+                return RedirectToAction("Details", new { id = restaurant.Id });
+            }
+            return View();
         }
     }
 }

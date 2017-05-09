@@ -1,6 +1,7 @@
-﻿using OdeToFood2017.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
+using OdeToFood2017.Entities;
 using System.Collections.Generic;
-using System;
+using System.Linq;
 
 namespace OdeToFood2017.Services
 {
@@ -9,11 +10,12 @@ namespace OdeToFood2017.Services
     {
         IEnumerable<Restaurant> GetAll();
         Restaurant Get(int id);
+        void Add(Restaurant restaurant);
     }
     public class InMemoryRestaurantData : IRestaurantData
     {
-        List<Restaurant> _restaurants;
-        public InMemoryRestaurantData()
+       static List<Restaurant> _restaurants;
+        static InMemoryRestaurantData()
         {
             _restaurants = new List<Restaurant>()
             {
@@ -22,9 +24,21 @@ namespace OdeToFood2017.Services
                  new Restaurant { Id = 3, Name = "Burger King" }
             };
         }
+
+        public Restaurant Get(int id)
+        {
+            return _restaurants.FirstOrDefault(r => r.Id == id);
+        }
+
         public IEnumerable<Restaurant> GetAll()
         {
             return _restaurants;
+        }
+       
+        public void Add(Restaurant newRestaurant)
+        {
+            newRestaurant.Id = _restaurants.Max(r => r.Id) + 1;
+            _restaurants.Add(newRestaurant);
         }
     }
 }
