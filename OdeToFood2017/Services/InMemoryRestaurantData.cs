@@ -12,6 +12,7 @@ namespace OdeToFood2017.Services
         IEnumerable<Restaurant> GetAll();
         Restaurant Get(int id);
         void Add(Restaurant restaurant);
+        int Commit();
     }
     public class SqlRestaurantData : IRestaurantData
     {
@@ -24,7 +25,11 @@ namespace OdeToFood2017.Services
         public void Add(Restaurant restaurant)
         {
             _context.Add(restaurant);
-            _context.SaveChanges();
+        }
+
+        public int Commit()
+        {
+         return  _context.SaveChanges();
         }
 
         public Restaurant Get(int id)
@@ -64,6 +69,11 @@ namespace OdeToFood2017.Services
         {
             newRestaurant.Id = _restaurants.Max(r => r.Id) + 1;
             _restaurants.Add(newRestaurant);
+        }
+
+        public int Commit()
+        {
+           return 0;
         }
     }
 }

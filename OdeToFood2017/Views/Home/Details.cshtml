@@ -1,9 +1,8 @@
 ﻿@model OdeToFood2017.Entities.Restaurant
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>@Model.Name</title>
-</head>
-<body>
+
+@{ 
+    ViewBag.Title = "Details";
+}
     <h1>@Model.Name</h1>
     <p>Id = @Model.Id</p>
     <p>Cuisine: @Model.Cuisine</p>
@@ -11,6 +10,5 @@
         @*<a href="/">Home</a>*@
         @Html.ActionLink("Home","Index");
     </div>
-</body>
-</html>
+
 
