@@ -10,6 +10,7 @@ using OdeToFood2017.Services;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using MySql.Data;
 
 namespace OdeToFood2017
 {
@@ -26,8 +27,10 @@ namespace OdeToFood2017
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.ad
             services.AddEntityFrameworkSqlServer().AddDbContext<OdeToFoodDbContext>(
                 options => options.UseSqlServer(Configuration["database:connection"]));
+            
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<OdeToFoodDbContext>();
             services.AddSingleton(provider => Configuration);
