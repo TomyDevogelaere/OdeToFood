@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace OdeToFood2017.Controllers
 {
-    [Authorize]
     public class HomeController: Controller
     {
         private IRestaurantData _restaurantData;

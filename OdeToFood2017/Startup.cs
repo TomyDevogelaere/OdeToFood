@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using OdeToFood2017.Entities;
@@ -8,8 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OdeToFood2017.Services;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using MySQL.Data.EntityFrameworkCore.Extensions;
 
 namespace OdeToFood2017
 {
@@ -26,10 +24,16 @@ namespace OdeToFood2017
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddEntityFrameworkSqlServer().AddDbContext<OdeToFoodDbContext>(
-                options => options.UseSqlServer(Configuration["database:connection"]));
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<OdeToFoodDbContext>();
+            services.AddDbContext<OdeToFoodDbContext>(options =>
+            {
+                options.UseMySQL("server=127.0.0.1;uid=root;pwd=;database=OdeToFood;");
+            });
+
+          
+            //services.AddEntityFrameworkSqlServer().AddDbContext<OdeToFoodDbContext>(
+            //    options => options.UseSqlServer(Configuration["database:connection"]));
+            //services.AddIdentity<User, IdentityRole>()
+            //    .AddEntityFrameworkStores<OdeToFoodDbContext>();
             services.AddSingleton(provider => Configuration);
             services.AddSingleton<IGreeter, Greeter>();
             services.AddScoped<IRestaurantData, SqlRestaurantData>();
@@ -43,7 +47,7 @@ namespace OdeToFood2017
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseIdentity();
+            //app.UseIdentity();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
