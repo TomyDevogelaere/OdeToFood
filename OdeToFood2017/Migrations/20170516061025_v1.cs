@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace OdeToFood2017.Migrations
 {
@@ -14,7 +13,7 @@ namespace OdeToFood2017.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:AutoIncrement", true),
                     Cuisine = table.Column<int>(nullable: false),
                     Name = table.Column<string>(maxLength: 80, nullable: false)
                 },

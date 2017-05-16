@@ -8,14 +8,13 @@ using OdeToFood2017.Entities;
 namespace OdeToFood2017.Migrations
 {
     [DbContext(typeof(OdeToFoodDbContext))]
-    [Migration("20170510054936_v1")]
+    [Migration("20170516061025_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.1")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "1.1.2");
 
             modelBuilder.Entity("OdeToFood2017.Entities.Restaurant", b =>
                 {
